@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Топтастар шайына шақыру</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #081614;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .background-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(34, 197, 94, 0.12), transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.15), transparent 45%);
+            pointer-events: none;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .audio-top-bar {
+            margin-top: 10px;
+        }
+
+        .hero-content {
+            margin: auto 0;
+        }
+
+        .badge {
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #5eead4;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .main-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 40%, #99f6e4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            letter-spacing: 1px;
+        }
+
+        .scroll-down {
+            margin-bottom: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-down span {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        /* 2-ші экран */
+        .card-box {
+            background: rgba(13, 40, 34, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .invitation-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .details-list {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #2dd4bf;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            line-height: 2;
+        }
+
+        .details-list strong {
+            color: #2dd4bf;
+        }
+
+        .gis-btn {
+            display: inline-block;
+            margin-top: 10px;
+            background: rgba(45, 212, 191, 0.15);
+            border: 1px solid rgba(45, 212, 191, 0.4);
+            color: #5eead4;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .gis-btn:hover {
+            background: rgba(45, 212, 191, 0.3);
+            color: #ffffff;
+        }
+
+        .countdown-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 8px;
+            border-radius: 12px;
+            min-width: 70px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .time-box label {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, #0d9488, #10b981);
+            border: none;
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
+        }
+
+        .music-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(13, 148, 136, 0.6);
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #2dd4bf;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-glow"></div>
+
+    <!-- 1-Экран -->
+    <section class="hero-section">
+        <div class="audio-top-bar">
+            <button class="music-btn" id="musicToggle">
+                🎵 «Сыр сұлуы» әнін қосу
+            </button>
+        </div>
+
+        <div class="hero-content">
+            <div class="badge">Шақыру хаты</div>
+            <h1 class="main-title">Құрметті достар!</h1>
+            <p class="subtitle">Топтастар шайына арнайы шақыру</p>
+        </div>
+
+        <div class="scroll-down">
+            Төмен қарай жылжытыңыз
+            <span>↓</span>
+        </div>
+    </section>
+
+    <!-- 2-Экран -->
+    <section class="details-section">
+        <div class="card-box">
+            <p class="invitation-text">
+                Өндірістік практикамыздың сәтті аяқталуына орай, сіздерді бірге атап өтіп, көңілді кеш өткізу үшін топтастар шайына шақырамын!
+            </p>
+
+            <div class="details-list">
+                <strong>🗓 Өтетін күні:</strong> 15 қараша 2026 ж.<br>
+                <strong>⏰ Басталуы:</strong> 15:15<br>
+                <strong>📍 Мекенжайы:</strong> Sultani рестораны<br>
+                <a href="https://2gis.kz/astana/geo/70000001055250285/71.465496,51.145726" target="_blank" class="gis-btn">
+                    🗺 2GIS картадан ашу
+                </a>
+            </div>
+
+            <div class="countdown-title">Кеске қалған уақыт</div>
+            <div class="countdown" id="countdown">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <label>Күн</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>Сағат</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>Минут</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <label>Секунд</label>
+                </div>
+            </div>
+
+            <audio id="bg-music" loop>
+                <source src="sir-suluy.mp3" type="audio/mpeg">
+            </audio>
+
+            <div class="signature">
+                Ізгі ниетпен, Серік!
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 15 қараша 2026, 15:15 уақытына таймер
+        const eventDate = new Date("November 15, 2026 15:15:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<p style='color: #2dd4bf;'>Кеш басталды!</p>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Музыка
+        const music = document.getElementById("bg-music");
+        const musicToggle = document.getElementById("musicToggle");
+        let isPlaying = false;
+
+        musicToggle.addEventListener("click", () => {
+            if (!isPlaying) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicToggle.innerText = "🔇 Музыканы өшіру";
+                }).catch(error => {
+                    alert("«sir-suluy.mp3» аудио файлы репозиторийде бар екенін тексеріңіз.");
+                });
+            } else {
+                music.pause();
+                isPlaying = false;
+                musicToggle.innerText = "🎵 «Сыр сұлуы» әнін қосу";
+            }
+        });
+    </script>
+</body>
+</html>
